@@ -1,65 +1,84 @@
-import Image from "next/image";
+import {
+  getProjects,
+  getServices,
+  getPackages,
+  getSiteSettings,
+} from "@/lib/data";
 
-export default function Home() {
+import { Preloader } from "@/components/layout/Preloader";
+import { StickyNav } from "@/components/layout/StickyNav";
+import { Hero } from "@/sections/Hero";
+import { About } from "@/sections/About";
+import { SelectedWork } from "@/sections/SelectedWork";
+import { Projects } from "@/sections/Projects";
+import { FeaturedProject } from "@/sections/FeaturedProject";
+import { VideoWork } from "@/sections/VideoWork";
+import { Editorial } from "@/sections/Editorial";
+import { Services } from "@/sections/Services";
+import { Packages } from "@/sections/Packages";
+import { Contact } from "@/sections/Contact";
+import { Footer } from "@/sections/Footer";
+
+export default async function Home() {
+  const [settings, projects, services, packages] = await Promise.all([
+    getSiteSettings(),
+    getProjects(),
+    getServices(),
+    getPackages(),
+  ]);
+
+  const preloadAssets = settings.hero.portraits.map((p) => p.src);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <>
+      <Preloader assets={preloadAssets} name={settings.name} />
+
+      <StickyNav
+        name={settings.name}
+        links={settings.nav}
+        cta={settings.contact.cta}
+      />
+
+      <main>
+        <Hero
+          name={settings.name}
+          portraits={settings.hero.portraits}
+          tags={settings.hero.tags}
+          showreelHref={settings.hero.showreelHref}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+
+        <About statement={settings.about.statement} frames={settings.about.frames} />
+
+        <SelectedWork images={settings.selectedWork} />
+
+        <Projects projects={projects} />
+
+        <FeaturedProject
+          title={settings.featured.title}
+          subtitle={settings.featured.subtitle}
+          clips={settings.featured.clips}
+        />
+
+        <VideoWork videos={settings.videoWork} />
+
+        <Editorial images={settings.editorial} />
+
+        <Services services={services} />
+
+        <Packages packages={packages} />
+
+        <Contact
+          heading={settings.contact.heading}
+          email={settings.contact.email}
+          cta={settings.contact.cta}
+        />
+
+        <Footer
+          name={settings.name}
+          statement={settings.footer.statement}
+          links={settings.footer.links}
+        />
       </main>
-    </div>
+    </>
   );
 }
