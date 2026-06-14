@@ -28,22 +28,26 @@ export function Projects({ projects }: { projects: Project[] }) {
       rows.forEach((row) => {
         const inner = row.querySelector<HTMLElement>(".proj-inner");
         if (!inner) return;
-        ScrollTrigger.create({
-          trigger: row,
-          start: "top bottom",
-          end: "bottom top",
-          onUpdate: () => {
-            const r = row.getBoundingClientRect();
-            const center = r.top + r.height / 2;
-            const dist = Math.abs(center - window.innerHeight / 2) / (window.innerHeight / 2);
-            const k = gsap.utils.clamp(0, 1, dist);
-            gsap.set(inner, {
-              scale: 1 - 0.22 * k,
-              opacity: 1 - 0.62 * k,
-              filter: `blur(${(k * 3).toFixed(2)}px)`,
-            });
-          },
-        });
+        // Scrub-based focus carousel: the row grows to full as it reaches the
+        // viewport centre and shrinks again as it leaves. Scrub ties the value
+        // to scroll position, so it's accurate at any offset (even at rest).
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: row,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+              invalidateOnRefresh: true,
+              refreshPriority: 4,
+            },
+          })
+          .fromTo(
+            inner,
+            { scale: 0.8, autoAlpha: 0.4 },
+            { scale: 1, autoAlpha: 1, ease: "sine.out", duration: 0.5 }
+          )
+          .to(inner, { scale: 0.8, autoAlpha: 0.4, ease: "sine.in", duration: 0.5 });
       });
     },
     [reduced, projects.length]

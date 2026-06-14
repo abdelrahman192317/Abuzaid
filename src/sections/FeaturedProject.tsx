@@ -25,7 +25,7 @@ export function FeaturedProject({ title, subtitle, clips }: FeaturedProjectProps
   const scope = useGsapContext<HTMLElement>(
     () => {
       if (reduced) {
-        gsap.set(".feat-frame", { scale: 1, borderRadius: 0 });
+        gsap.set(".feat-frame", { scale: 1 });
         return;
       }
       gsap
@@ -35,13 +35,16 @@ export function FeaturedProject({ title, subtitle, clips }: FeaturedProjectProps
             start: "top top",
             end: "+=180%",
             pin: true,
+            anticipatePin: 1,
             scrub: 0.6,
+            invalidateOnRefresh: true,
+            refreshPriority: 3,
           },
         })
         .fromTo(
           ".feat-frame",
-          { scale: 0.34, borderRadius: 24 },
-          { scale: 1, borderRadius: 0, ease: "none" }
+          { scale: 0.34 },
+          { scale: 1, ease: "none" }
         )
         .fromTo(".feat-meta", { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0 }, "<0.4");
     },
@@ -50,8 +53,8 @@ export function FeaturedProject({ title, subtitle, clips }: FeaturedProjectProps
 
   return (
     <section id="featured" ref={scope as React.RefObject<HTMLElement>} className="bg-[var(--paper)]">
-      <div className="feat-pin relative flex h-[100svh] w-full items-center justify-center overflow-hidden">
-        <div className="feat-frame relative h-[100svh] w-full origin-center overflow-hidden">
+      <div className="feat-pin relative h-[100svh] w-full overflow-hidden">
+        <div className="feat-frame absolute inset-4 origin-center overflow-hidden rounded-[28px] md:inset-8">
           <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-[2px]">
             {clips.slice(0, 4).map((c) => (
               <VideoTile key={c.src} media={c} className="h-full w-full" />

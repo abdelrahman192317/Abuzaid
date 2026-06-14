@@ -19,6 +19,7 @@ export function About({ statement, frames }: AboutProps) {
     pad: frames.pad,
     ext: frames.ext,
     scrollLength: 3,
+    refreshPriority: 6,
   });
 
   return (

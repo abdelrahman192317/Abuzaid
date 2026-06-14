@@ -32,6 +32,14 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     gsap.ticker.add(onTick);
     gsap.ticker.lagSmoothing(0);
 
+    // Pinned sections compute their start/end from layout height. Re-measure
+    // once fonts and late assets settle so nothing drifts or overlaps.
+    ScrollTrigger.config({ ignoreMobileResize: true });
+    const refresh = () => ScrollTrigger.refresh();
+    window.addEventListener("load", refresh);
+    document.fonts?.ready.then(refresh).catch(() => {});
+    const t = window.setTimeout(refresh, 600);
+
     // Anchor links should route through Lenis.
     const onClick = (e: MouseEvent) => {
       const a = (e.target as HTMLElement)?.closest?.(
@@ -52,6 +60,8 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
 
     return () => {
       document.removeEventListener("click", onClick);
+      window.removeEventListener("load", refresh);
+      window.clearTimeout(t);
       gsap.ticker.remove(onTick);
       lenis.destroy();
     };

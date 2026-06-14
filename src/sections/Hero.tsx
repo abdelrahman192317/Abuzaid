@@ -61,9 +61,10 @@ export function Hero({ name, portraits, tags, showreelHref }: HeroProps) {
       id="hero"
       className="relative flex min-h-[100svh] w-full flex-col items-center justify-center overflow-hidden px-[var(--gutter)] pt-24"
     >
-      {/* name + portrait */}
-      <div className="grid w-full max-w-[1400px] grid-cols-1 items-center gap-6 md:grid-cols-[1fr_auto_1fr]">
-        <h1 className="display order-2 text-center text-[clamp(3rem,12vw,9rem)] md:order-1 md:text-right">
+      {/* name + portrait — names sit beside the image and tuck over its edges
+          (raised slightly) for a layered, stacked editorial look on desktop. */}
+      <div className="grid w-full max-w-[1400px] grid-cols-1 items-center gap-6 md:grid-cols-[1fr_auto_1fr] md:gap-0">
+        <h1 className="display order-2 z-20 text-center text-[clamp(2.25rem,7vw,6.5rem)] md:order-1 md:-mr-[3vw] md:-translate-y-8 md:justify-self-end md:whitespace-nowrap md:text-right">
           {name.first}
         </h1>
 
@@ -71,7 +72,7 @@ export function Hero({ name, portraits, tags, showreelHref }: HeroProps) {
           onMouseEnter={onEnter}
           onMouseLeave={onLeave}
           onClick={onTap}
-          className="order-1 mx-auto aspect-[3/4] w-[min(62vw,300px)] overflow-hidden bg-[var(--paper-2)] md:order-2 md:w-[clamp(220px,20vw,320px)]"
+          className="relative z-10 order-1 mx-auto aspect-[3/4] w-[min(62vw,300px)] overflow-hidden bg-[var(--paper-2)] md:order-2 md:w-[clamp(240px,22vw,340px)]"
         >
           <div className="relative h-full w-full">
             {portraits.map((p, i) => (
@@ -84,7 +85,7 @@ export function Hero({ name, portraits, tags, showreelHref }: HeroProps) {
                   media={p}
                   fill
                   priority={i === 0}
-                  sizes="(max-width: 768px) 62vw, 320px"
+                  sizes="(max-width: 768px) 62vw, 340px"
                   className="object-cover"
                 />
               </div>
@@ -92,7 +93,7 @@ export function Hero({ name, portraits, tags, showreelHref }: HeroProps) {
           </div>
         </div>
 
-        <h1 className="display order-3 text-center text-[clamp(3rem,12vw,9rem)] md:text-left">
+        <h1 className="display order-3 z-20 text-center text-[clamp(2.25rem,7vw,6.5rem)] md:-ml-[3vw] md:-translate-y-8 md:justify-self-start md:whitespace-nowrap md:text-left">
           {name.family}
         </h1>
       </div>

@@ -40,7 +40,10 @@ export function SelectedWork({ images }: { images: MediaItem[] }) {
             start: "top top",
             end: "+=240%",
             pin: true,
+            anticipatePin: 1,
             scrub: 0.6,
+            invalidateOnRefresh: true,
+            refreshPriority: 5,
           },
         })
         .fromTo(

@@ -16,21 +16,24 @@ interface FrameSequenceOptions {
   ext: string;
   /** Scroll distance the pin lasts, in viewport heights. */
   scrollLength?: number;
+  /** Higher = refreshed earlier, so pins higher on the page reserve space first. */
+  refreshPriority?: number;
 }
 
 /**
  * Preloads a frame sequence, pins a section, and scrubs the frames onto a
- * <canvas> as the user scrolls. The section advances to the next one once the
- * sequence completes. Falls back to a single static frame + no pin when the
- * user prefers reduced motion.
- *
- * Returns refs to attach to the wrapper section and the canvas.
+ * <canvas> as the user scrolls. The pin is created SYNCHRONOUSLY on mount so it
+ * reserves its scroll space immediately — otherwise the sections below it would
+ * be positioned as if this one were a single screen tall, and everything would
+ * overlap once the (late) pin appeared. Falls back to a single static frame +
+ * no pin when the user prefers reduced motion.
  */
 export function useFrameSequence(opts: FrameSequenceOptions) {
-  const { dir, count, pad, ext, scrollLength = 3 } = opts;
+  const { dir, count, pad, ext, scrollLength = 3, refreshPriority = 0 } = opts;
   const sectionRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
+  const renderRef = useRef<() => void>(() => {});
   const [loaded, setLoaded] = useState(false);
   const reduced = usePrefersReducedMotion();
 
@@ -43,6 +46,8 @@ export function useFrameSequence(opts: FrameSequenceOptions) {
     let done = 0;
     const onOne = () => {
       done += 1;
+      // redraw the current frame as soon as something is available
+      renderRef.current?.();
       if (active && done >= count) setLoaded(true);
     };
     for (let i = 0; i < count; i++) {
@@ -58,9 +63,9 @@ export function useFrameSequence(opts: FrameSequenceOptions) {
     };
   }, [dir, count, pad, ext, prefix]);
 
-  // Scrub frames onto the canvas.
+  // Set up the canvas + pin immediately (does NOT wait for frames to load).
   useEffect(() => {
-    if (!loaded || !canvasRef.current || !sectionRef.current) return;
+    if (!canvasRef.current || !sectionRef.current) return;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -90,6 +95,7 @@ export function useFrameSequence(opts: FrameSequenceOptions) {
       const img = imagesRef.current[idx];
       if (img) drawCover(img);
     };
+    renderRef.current = render;
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -115,7 +121,10 @@ export function useFrameSequence(opts: FrameSequenceOptions) {
           start: "top top",
           end: `+=${scrollLength * 100}%`,
           pin: true,
+          anticipatePin: 1,
           scrub: 0.5,
+          invalidateOnRefresh: true,
+          refreshPriority,
         },
         onUpdate: render,
       });
@@ -126,7 +135,7 @@ export function useFrameSequence(opts: FrameSequenceOptions) {
       window.removeEventListener("resize", resize);
       ctxGsap.revert();
     };
-  }, [loaded, reduced, count, scrollLength]);
+  }, [reduced, count, scrollLength, refreshPriority]);
 
   return { sectionRef, canvasRef, loaded };
 }

@@ -33,8 +33,10 @@ export function VideoWork({ videos }: { videos: MediaItem[] }) {
           start: "top top",
           end: () => "+=" + (track.scrollWidth - window.innerWidth),
           pin: true,
+          anticipatePin: 1,
           scrub: 0.6,
           invalidateOnRefresh: true,
+          refreshPriority: 2,
         },
       });
     },

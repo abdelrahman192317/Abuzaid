@@ -35,7 +35,10 @@ export function Services({ services }: { services: Service[] }) {
             start: "top top",
             end: "+=180%",
             pin: true,
+            anticipatePin: 1,
             scrub: 0.6,
+            invalidateOnRefresh: true,
+            refreshPriority: 1,
           },
         }
       );
