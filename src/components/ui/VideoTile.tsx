@@ -12,8 +12,8 @@ interface VideoTileProps {
 
 /**
  * Poster-first video tile. Uses preload="metadata" + a poster so nothing heavy
- * loads until played; the browser handles range requests. The custom cursor
- * switches to a PLAY state on hover; on touch a tap toggles playback.
+ * loads until needed; the browser handles range requests. On desktop the clip
+ * plays on hover (and the custom cursor shows PLAY); on touch a tap toggles it.
  */
 export function VideoTile({ media, className = "" }: VideoTileProps) {
   const { setCursor } = useCursor();
@@ -21,12 +21,33 @@ export function VideoTile({ media, className = "" }: VideoTileProps) {
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
 
-  const toggle = () => {
+  const play = () => {
     const v = ref.current;
     if (!v) return;
-    if (v.paused) {
-      v.play().then(() => setPlaying(true)).catch(() => {});
-    } else {
+    v.play().then(() => setPlaying(true)).catch(() => {});
+  };
+  const pauseReset = () => {
+    const v = ref.current;
+    if (!v) return;
+    v.pause();
+    v.currentTime = 0;
+    setPlaying(false);
+  };
+
+  const onEnter = () => {
+    setCursor("play");
+    if (!isTouch) play();
+  };
+  const onLeave = () => {
+    setCursor("default");
+    if (!isTouch) pauseReset();
+  };
+  const onClick = () => {
+    if (!isTouch) return; // desktop is hover-driven
+    const v = ref.current;
+    if (!v) return;
+    if (v.paused) play();
+    else {
       v.pause();
       setPlaying(false);
     }
@@ -35,9 +56,9 @@ export function VideoTile({ media, className = "" }: VideoTileProps) {
   return (
     <div
       className={`group relative overflow-hidden bg-[var(--ink)] ${className}`}
-      onMouseEnter={() => setCursor("play")}
-      onMouseLeave={() => setCursor("default")}
-      onClick={toggle}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+      onClick={onClick}
     >
       <video
         ref={ref}
@@ -51,7 +72,7 @@ export function VideoTile({ media, className = "" }: VideoTileProps) {
         <source src={media.src} type="video/mp4" />
       </video>
 
-      {/* touch-only play affordance (custom cursor handles desktop) */}
+      {/* touch-only play affordance (desktop uses hover + custom cursor) */}
       {isTouch && !playing && (
         <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--paper)]/85 text-[var(--ink)]">

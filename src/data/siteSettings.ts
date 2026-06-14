@@ -97,7 +97,7 @@ export const siteSettings: SiteSettings = {
   footer: {
     statement: "Mo7ammed Abuzaid — Photography & Direction.",
     links: [
-      { label: "Instagram", href: "https://instagram.com" },
+      { label: "Instagram", href: "https://instagram.com/world_of_lens.jo" },
       { label: "Behance", href: "https://behance.net" },
       { label: "Vimeo", href: "https://vimeo.com" },
       { label: "Email", href: "mailto:studio@abuzaid.photo" },

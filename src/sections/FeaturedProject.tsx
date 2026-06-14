@@ -43,7 +43,7 @@ export function FeaturedProject({ title, subtitle, clips }: FeaturedProjectProps
         })
         .fromTo(
           ".feat-frame",
-          { scale: 0.34 },
+          { scale: 0.55 },
           { scale: 1, ease: "none" }
         )
         .fromTo(".feat-meta", { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0 }, "<0.4");
@@ -55,8 +55,9 @@ export function FeaturedProject({ title, subtitle, clips }: FeaturedProjectProps
     <section id="featured" ref={scope as React.RefObject<HTMLElement>} className="bg-[var(--paper)]">
       <div className="feat-pin relative h-[100svh] w-full overflow-hidden">
         <div className="feat-frame absolute inset-4 origin-center overflow-hidden rounded-[28px] md:inset-8">
-          <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-[2px]">
-            {clips.slice(0, 4).map((c) => (
+          {/* Reels are 9:16 — three full-height portrait tiles fill the frame. */}
+          <div className="grid h-full w-full grid-cols-3 gap-[2px]">
+            {clips.slice(0, 3).map((c) => (
               <VideoTile key={c.src} media={c} className="h-full w-full" />
             ))}
           </div>
