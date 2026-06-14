@@ -67,40 +67,46 @@ export function Preloader({ assets, name }: PreloaderProps) {
       },
     });
 
+    // Idempotent release — never depends on a GSAP callback to unlock the page.
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      document.documentElement.style.overflow = "";
+      setHidden(true);
+      ScrollTrigger.refresh();
+    };
+
     let cancelled = false;
     gate.then(() => {
       if (cancelled) return;
       counterTween.kill();
       if (counterRef.current) counterRef.current.textContent = "100";
 
-      const finish = () => {
-        document.documentElement.style.overflow = "";
-        setHidden(true);
-        ScrollTrigger.refresh();
-      };
-
-      if (reduced || !overlayRef.current) {
-        gsap.to(overlayRef.current, {
-          autoAlpha: 0,
-          duration: 0.4,
-          onComplete: finish,
-        });
+      const overlay = overlayRef.current;
+      if (reduced || !overlay) {
+        if (overlay) gsap.to(overlay, { autoAlpha: 0, duration: 0.4, onComplete: finish });
+        else finish();
         return;
       }
 
       gsap
         .timeline({ onComplete: finish })
         .to(".preloader-inner", { autoAlpha: 0, duration: 0.4, ease: "power2.in" })
-        .to(overlayRef.current, {
+        .to(overlay, {
           clipPath: "inset(0% 0% 100% 0%)",
           duration: 1.1,
           ease: "power4.inOut",
         });
     });
 
+    // Hard failsafe: release no matter what (slow network, stalled ticker, etc.).
+    const failsafe = window.setTimeout(finish, MAX_DURATION + 1500);
+
     return () => {
       cancelled = true;
       counterTween.kill();
+      window.clearTimeout(failsafe);
       document.documentElement.style.overflow = "";
     };
   }, [assets, reduced]);

@@ -28,7 +28,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`}>
-      <body>
+      {/* Browser extensions (e.g. Grammarly) inject attributes onto <body>
+          before hydration; suppress that one-level warning only. */}
+      <body suppressHydrationWarning>
         <SmoothScrollProvider>
           <CursorProvider>{children}</CursorProvider>
         </SmoothScrollProvider>
