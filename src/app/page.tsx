@@ -43,7 +43,6 @@ export default async function Home() {
           name={settings.name}
           portraits={settings.hero.portraits}
           tags={settings.hero.tags}
-          showreelHref={settings.hero.showreelHref}
         />
 
         <About statement={settings.about.statement} frames={settings.about.frames} />

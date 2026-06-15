@@ -65,7 +65,6 @@ export interface SiteSettings {
   hero: {
     portraits: MediaItem[];
     tags: string[];
-    showreelHref: string;
   };
   editorial: MediaItem[];
   videoWork: MediaItem[];

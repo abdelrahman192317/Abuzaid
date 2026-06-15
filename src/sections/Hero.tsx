@@ -17,7 +17,7 @@ interface HeroProps {
  * Hover rapidly cycles portraits; leaving reverts to the default. On touch
  * there's no hover, so it slowly autoplays and responds to tap.
  */
-export function Hero({ name, portraits, tags, showreelHref }: HeroProps) {
+export function Hero({ name, portraits, tags }: HeroProps) {
   const isTouch = useIsTouch();
   const [index, setIndex] = useState(0);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -103,13 +103,6 @@ export function Hero({ name, portraits, tags, showreelHref }: HeroProps) {
         <span>01 — 11</span>
         <span>©{new Date().getFullYear()}</span>
       </div>
-
-      <a
-        href={showreelHref}
-        className="link-underline mt-10 text-sm uppercase tracking-[0.18em] md:absolute md:left-[var(--gutter)] md:bottom-[var(--gutter)] md:mt-0"
-      >
-        ▶ Play showreel
-      </a>
 
       <div className="mt-5 flex flex-col items-center gap-1 text-sm text-[var(--ink-60)] md:absolute md:right-[var(--gutter)] md:bottom-[var(--gutter)] md:mt-0 md:items-end">
         {tags.map((t) => (
