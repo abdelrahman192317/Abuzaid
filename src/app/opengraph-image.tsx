@@ -51,14 +51,16 @@ export default function OpengraphImage() {
           >
             <div
               style={{
+                display: "flex",
+                flexDirection: "column",
                 fontSize: 96,
                 fontWeight: 500,
                 lineHeight: 1,
                 letterSpacing: -4,
               }}
             >
-              Photographer
-              <br />& Director.
+              <span>Photographer</span>
+              <span>& Director.</span>
             </div>
             <div
               style={{
