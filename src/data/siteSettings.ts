@@ -66,7 +66,7 @@ export const siteSettings: SiteSettings = {
     { label: "Contact", href: "#contact" },
   ],
   socials: [
-    { label: "Instagram", href: "https://instagram.com" },
+    { label: "Instagram", href: "https://instagram.com/world_of_lens.jo" },
     { label: "Behance", href: "https://behance.net" },
     { label: "Vimeo", href: "https://vimeo.com" },
     { label: "LinkedIn", href: "https://linkedin.com" },
@@ -87,7 +87,7 @@ export const siteSettings: SiteSettings = {
   about: {
     statement:
       "I make pictures that hold their breath. For a decade I've worked between editorial, brand and documentary — chasing the half-second where a thing falls apart and comes back together.",
-    frames: { dir: "/frames/about", count: 48, pad: 4, ext: "jpg" },
+    frames: { dir: "/frames/about", count: 330, pad: 4, ext: "jpg" },
   },
   contact: {
     heading: "Let's make something worth looking at.",
