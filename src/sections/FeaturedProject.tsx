@@ -19,7 +19,7 @@ interface FeaturedProjectProps {
  * Grow-to-fill spotlight: a small multi-clip frame scales up with scroll until
  * it fills the screen, signalling a flagship project. Reduced motion → static.
  */
-export function FeaturedProject({ title, subtitle, clips }: FeaturedProjectProps) {
+export function FeaturedProject({ title: _title, subtitle: _subtitle, clips }: FeaturedProjectProps) {
   const reduced = usePrefersReducedMotion();
 
   const scope = useGsapContext<HTMLElement>(
@@ -45,28 +45,28 @@ export function FeaturedProject({ title, subtitle, clips }: FeaturedProjectProps
           ".feat-frame",
           { scale: 0.55 },
           { scale: 1, ease: "none" }
-        )
-        .fromTo(".feat-meta", { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0 }, "<0.4");
+        );
     },
     [reduced, clips.length]
   );
+
+  const mobileClip = clips[0];
 
   return (
     <section id="featured" ref={scope as React.RefObject<HTMLElement>} className="bg-[var(--paper)]">
       <div className="feat-pin relative h-[100svh] w-full overflow-hidden">
         <div className="feat-frame absolute inset-4 origin-center overflow-hidden rounded-[28px] md:inset-8">
-          {/* Reels are 9:16 — three full-height portrait tiles fill the frame. */}
-          <div className="grid h-full w-full grid-cols-3 gap-[2px]">
+          {/* Mobile: single reel fills the frame. Desktop: three side-by-side. */}
+          <div className="hidden h-full w-full grid-cols-3 gap-[2px] md:grid">
             {clips.slice(0, 3).map((c) => (
               <VideoTile key={c.src} media={c} className="h-full w-full" />
             ))}
           </div>
-
-          <div className="feat-meta pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center text-[var(--paper)] mix-blend-difference">
-            <span className="font-mono text-xs uppercase tracking-[0.2em]">Featured</span>
-            <h2 className="display mt-3 text-[clamp(2rem,7vw,6rem)]">{title}</h2>
-            <p className="mt-2 max-w-[36ch] text-sm opacity-80">{subtitle}</p>
-          </div>
+          {mobileClip && (
+            <div className="flex h-full w-full md:hidden">
+              <VideoTile media={mobileClip} className="h-full w-full" />
+            </div>
+          )}
         </div>
       </div>
     </section>

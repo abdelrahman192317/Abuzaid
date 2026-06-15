@@ -44,7 +44,7 @@ export function VideoWork({ videos }: { videos: MediaItem[] }) {
   );
 
   const Heading = (
-    <div className="flex h-full min-w-[60vw] shrink-0 flex-col justify-center pr-[6vw] md:min-w-[40vw]">
+    <div className="flex h-full min-w-[40vw] shrink-0 flex-col justify-center pr-[6vw]">
       <span className="font-mono text-xs uppercase tracking-[0.2em] text-[var(--ink-60)]">
         (Video Work)
       </span>
@@ -53,33 +53,44 @@ export function VideoWork({ videos }: { videos: MediaItem[] }) {
         Motion
       </h2>
       <p className="mt-4 max-w-[34ch] text-sm text-[var(--ink-60)]">
-        Selected motion work. Hover to play — or swipe through on touch.
+        Selected motion work. Hover to play — or tap through on touch.
       </p>
     </div>
   );
 
-  const tiles = videos.map((v, i) => (
-    <div
-      key={v.src}
-      className="h-[58vh] w-[80vw] shrink-0 snap-center md:w-[46vw]"
-      style={{ marginRight: i === videos.length - 1 ? 0 : "2vw" }}
-    >
-      <VideoTile media={v} className="h-full w-full" />
-    </div>
-  ));
-
   if (native) {
+    const mobileTiles = videos.slice(0, 4);
     return (
       <section id="video" ref={scope as React.RefObject<HTMLElement>} className="bg-[var(--paper)]">
-        <div className="flex min-h-[100svh] flex-col justify-center py-[10vh]">
-          <div className="no-scrollbar flex snap-x snap-mandatory items-center overflow-x-auto px-[var(--gutter)]">
-            {Heading}
-            {tiles}
+        <div className="flex min-h-[100svh] flex-col justify-center px-[var(--gutter)] py-[10vh]">
+          <span className="font-mono text-xs uppercase tracking-[0.2em] text-[var(--ink-60)]">
+            (Video Work)
+          </span>
+          <h2 className="display mt-3 text-[clamp(2.5rem,9vw,5rem)]">
+            Films &<br />
+            Motion
+          </h2>
+          <div className="mt-8 grid grid-cols-2 gap-3">
+            {mobileTiles.map((v) => (
+              <div key={v.src} className="aspect-square overflow-hidden">
+                <VideoTile media={v} className="h-full w-full" />
+              </div>
+            ))}
           </div>
         </div>
       </section>
     );
   }
+
+  const tiles = videos.map((v, i) => (
+    <div
+      key={v.src}
+      className="aspect-[9/16] h-[72vh] shrink-0"
+      style={{ marginRight: i === videos.length - 1 ? 0 : "2vw" }}
+    >
+      <VideoTile media={v} className="h-full w-full" />
+    </div>
+  ));
 
   return (
     <section id="video" ref={scope as React.RefObject<HTMLElement>} className="bg-[var(--paper)]">
