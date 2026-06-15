@@ -81,7 +81,7 @@ export function Services({ services }: { services: Service[] }) {
 
   return (
     <section id="services" ref={scope} className="relative bg-[var(--ink)] text-[var(--paper)]">
-      <div className="svc-pin relative h-[100svh] w-full overflow-hidden">
+      <div className="svc-pin relative h-[100dvh] w-full overflow-hidden">
         <div className="noise-bg pointer-events-none absolute inset-0 opacity-60" />
 
         {/* huge wordmark backdrop */}

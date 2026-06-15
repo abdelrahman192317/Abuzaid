@@ -54,7 +54,7 @@ export function FeaturedProject({ title: _title, subtitle: _subtitle, clips }: F
 
   return (
     <section id="featured" ref={scope as React.RefObject<HTMLElement>} className="bg-[var(--paper)]">
-      <div className="feat-pin relative h-[100svh] w-full overflow-hidden">
+      <div className="feat-pin relative h-[100dvh] w-full overflow-hidden">
         <div className="feat-frame absolute inset-4 origin-center overflow-hidden rounded-[28px] md:inset-8">
           {/* Mobile: single reel fills the frame. Desktop: three side-by-side. */}
           <div className="hidden h-full w-full grid-cols-3 gap-[2px] md:grid">

@@ -13,7 +13,7 @@ interface SectionShellProps {
 }
 
 /**
- * Standard section wrapper: fills the viewport (100svh) so every section reads
+ * Standard section wrapper: fills the viewport (100dvh) so every section reads
  * as its own "page", applies consistent editorial padding, and warm-preloads
  * the section's heavier assets just before they scroll into view.
  */
@@ -52,7 +52,7 @@ export function SectionShell({
       ref={ref}
       id={id}
       className={`relative w-full ${
-        fullHeight ? "min-h-[100svh]" : ""
+        fullHeight ? "min-h-[100dvh]" : ""
       } ${className}`}
     >
       {children}

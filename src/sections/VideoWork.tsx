@@ -76,7 +76,7 @@ export function VideoWork({ videos }: { videos: MediaItem[] }) {
     const mobileTiles = videos.slice(0, 4);
     return (
       <section id="video" ref={scope as React.RefObject<HTMLElement>} className="bg-[var(--paper)]">
-        <div className="flex min-h-[100svh] flex-col justify-center px-[var(--gutter)] py-[10vh]">
+        <div className="flex min-h-[100dvh] flex-col justify-center px-[var(--gutter)] py-[10vh]">
           <span className="font-mono text-xs uppercase tracking-[0.2em] text-[var(--ink-60)]">
             (Video Work)
           </span>
@@ -108,7 +108,7 @@ export function VideoWork({ videos }: { videos: MediaItem[] }) {
 
   return (
     <section id="video" ref={scope as React.RefObject<HTMLElement>} className="bg-[var(--paper)]">
-      <div className="vw-pin relative flex h-[100svh] items-center overflow-hidden">
+      <div className="vw-pin relative flex h-[100dvh] items-center overflow-hidden">
         <div className="vw-track flex items-center pl-[var(--gutter)] will-change-transform">
           {Heading}
           {tiles}

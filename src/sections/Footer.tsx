@@ -60,7 +60,7 @@ export function Footer({ name, statement, links }: FooterProps) {
       className="relative w-full"
       style={{ perspective: "1400px" }}
     >
-      <div className="footer-cover flex min-h-[100svh] w-full flex-col justify-between bg-[var(--ink)] px-[var(--gutter)] py-[var(--gutter)] text-[var(--paper)] will-change-transform">
+      <div className="footer-cover flex min-h-[100dvh] w-full flex-col justify-between bg-[var(--ink)] px-[var(--gutter)] py-[var(--gutter)] text-[var(--paper)] will-change-transform">
         <div className="flex items-start justify-between">
           <span className="font-mono text-xs uppercase tracking-[0.2em] opacity-70">
             (Back cover)

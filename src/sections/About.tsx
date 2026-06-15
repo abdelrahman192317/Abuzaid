@@ -26,7 +26,7 @@ export function About({ statement, frames }: AboutProps) {
     <section
       id="about"
       ref={sectionRef}
-      className="relative h-[100svh] w-full overflow-hidden bg-[var(--ink)] text-[var(--paper)]"
+      className="relative h-[100dvh] w-full overflow-hidden bg-[var(--ink)] text-[var(--paper)]"
     >
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
 

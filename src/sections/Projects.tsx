@@ -156,7 +156,7 @@ export function Projects({ projects }: { projects: Project[] }) {
         {projects.map((p, i) => (
           <div
             key={p.id}
-            className="relative flex min-h-[100svh] items-center justify-center px-[var(--gutter)]"
+            className="relative flex min-h-[100dvh] items-center justify-center px-[var(--gutter)]"
           >
             <Figure project={p} index={i} total={total} priority={i === 0} />
           </div>
@@ -168,7 +168,7 @@ export function Projects({ projects }: { projects: Project[] }) {
   return (
     <section id="projects" ref={scope} className="relative w-full bg-[var(--ink)] text-[var(--paper)]">
       <div
-        className="proj-pin relative flex h-[100svh] items-center justify-center overflow-hidden"
+        className="proj-pin relative flex h-[100dvh] items-center justify-center overflow-hidden"
         onMouseEnter={() => setCursor("view")}
         onMouseLeave={() => setCursor("default")}
       >

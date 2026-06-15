@@ -59,7 +59,7 @@ export function Hero({ name, portraits, tags, showreelHref }: HeroProps) {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[100svh] w-full flex-col items-center justify-center overflow-hidden px-[var(--gutter)] pt-24"
+      className="relative flex min-h-[100dvh] w-full flex-col items-center justify-center overflow-hidden px-[var(--gutter)] pt-24"
     >
       {/* name + portrait — names sit beside the image and tuck over its edges
           (raised slightly) for a layered, stacked editorial look on desktop. */}

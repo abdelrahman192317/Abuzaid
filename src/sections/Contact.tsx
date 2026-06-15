@@ -16,7 +16,7 @@ export function Contact({ heading, email, cta }: ContactProps) {
   return (
     <section
       id="contact"
-      className="relative flex min-h-[100svh] w-full flex-col items-center justify-center gap-12 px-[var(--gutter)] text-center"
+      className="relative flex min-h-[100dvh] w-full flex-col items-center justify-center gap-12 px-[var(--gutter)] text-center"
     >
       <h2 className="display max-w-[18ch] text-[clamp(2.5rem,8vw,7rem)]">{heading}</h2>
 

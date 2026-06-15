@@ -10,7 +10,7 @@ export function Packages({ packages }: { packages: Package[] }) {
   return (
     <section
       id="packages"
-      className="flex min-h-[100svh] w-full flex-col justify-center px-[var(--gutter)] py-24"
+      className="flex min-h-[100dvh] w-full flex-col justify-center px-[var(--gutter)] py-24"
     >
       <div className="mb-[6vh] flex items-baseline justify-between">
         <h2 className="display text-[clamp(2rem,6vw,5rem)]">Packages</h2>
