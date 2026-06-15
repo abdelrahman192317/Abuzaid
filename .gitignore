@@ -40,5 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# public assets — experimental placeholders / test videos, kept local only
-/public/
+# videos kept local only
+/public/videos/
