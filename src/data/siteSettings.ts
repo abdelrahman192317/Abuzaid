@@ -66,7 +66,6 @@ export const siteSettings: SiteSettings = {
   hero: {
     portraits: heroPortraits,
     tags: ["Art direction", "Digital production", "Branding"],
-    showreelHref: "#video",
   },
   editorial,
   videoWork,

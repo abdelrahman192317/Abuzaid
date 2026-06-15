@@ -9,7 +9,6 @@ interface HeroProps {
   name: { first: string; family: string };
   portraits: MediaItem[];
   tags: string[];
-  showreelHref: string;
 }
 
 /**
