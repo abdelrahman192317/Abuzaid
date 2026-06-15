@@ -10,7 +10,7 @@ if (typeof window !== "undefined") {
 }
 
 interface FrameSequenceOptions {
-  dir: string; // e.g. "/frames/about"
+  dir: string; // e.g. "/frames"
   count: number;
   pad: number;
   ext: string;
