@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { VideoTile } from "@/components/ui/VideoTile";
@@ -7,6 +8,18 @@ import { useGsapContext } from "@/hooks/useGsapContext";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useIsTouch } from "@/hooks/useIsTouch";
 import type { MediaItem } from "@/lib/types";
+
+function useIsNarrow(breakpoint = 768) {
+  const [narrow, setNarrow] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${breakpoint - 1}px)`);
+    const update = () => setNarrow(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, [breakpoint]);
+  return narrow;
+}
 
 if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
@@ -18,7 +31,8 @@ if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 export function VideoWork({ videos }: { videos: MediaItem[] }) {
   const reduced = usePrefersReducedMotion();
   const isTouch = useIsTouch();
-  const native = reduced || isTouch;
+  const isNarrow = useIsNarrow();
+  const native = reduced || isTouch || isNarrow;
 
   const scope = useGsapContext<HTMLElement>(
     () => {
