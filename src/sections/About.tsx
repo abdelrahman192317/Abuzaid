@@ -18,7 +18,7 @@ export function About({ statement, frames }: AboutProps) {
     count: frames.count,
     pad: frames.pad,
     ext: frames.ext,
-    scrollLength: 12,
+    scrollLength: 6,
     refreshPriority: 6,
   });
 
