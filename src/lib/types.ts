@@ -67,7 +67,6 @@ export interface SiteSettings {
     tags: string[];
     showreelHref: string;
   };
-  selectedWork: MediaItem[];
   editorial: MediaItem[];
   videoWork: MediaItem[];
   featured: {

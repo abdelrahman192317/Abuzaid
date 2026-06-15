@@ -9,7 +9,6 @@ import { Preloader } from "@/components/layout/Preloader";
 import { StickyNav } from "@/components/layout/StickyNav";
 import { Hero } from "@/sections/Hero";
 import { About } from "@/sections/About";
-import { SelectedWork } from "@/sections/SelectedWork";
 import { Projects } from "@/sections/Projects";
 import { FeaturedProject } from "@/sections/FeaturedProject";
 import { VideoWork } from "@/sections/VideoWork";
@@ -48,8 +47,6 @@ export default async function Home() {
         />
 
         <About statement={settings.about.statement} frames={settings.about.frames} />
-
-        <SelectedWork images={settings.selectedWork} />
 
         <Projects projects={projects} />
 

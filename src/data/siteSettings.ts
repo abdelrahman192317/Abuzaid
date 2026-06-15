@@ -8,14 +8,6 @@ const heroPortraits: MediaItem[] = Array.from({ length: 5 }, (_, i) => ({
   alt: `Mo7ammed Abuzaid — portrait ${i + 1}`,
 }));
 
-const selectedWork: MediaItem[] = Array.from({ length: 8 }, (_, i) => ({
-  type: "image",
-  src: `/images/selected-${String(i + 1).padStart(2, "0")}.jpg`,
-  width: 1200,
-  height: 1200,
-  alt: `Selected work ${i + 1}`,
-}));
-
 const editorialSizes: [number, number][] = [
   [1600, 2000],
   [2400, 1600],
@@ -76,7 +68,6 @@ export const siteSettings: SiteSettings = {
     tags: ["Art direction", "Digital production", "Branding"],
     showreelHref: "#video",
   },
-  selectedWork,
   editorial,
   videoWork,
   featured: {
