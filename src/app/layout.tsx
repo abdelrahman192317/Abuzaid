@@ -18,6 +18,7 @@ const sans = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://abuzaid-ten.vercel.app"),
   title: "Mo7ammed Abuzaid — Photographer & Director",
   description:
     "Editorial, brand and documentary photography. Image-led brand worlds by Mo7ammed Abuzaid.",
