@@ -87,7 +87,7 @@ export const siteSettings: SiteSettings = {
   about: {
     statement:
       "I make pictures that hold their breath. For a decade I've worked between editorial, brand and documentary — chasing the half-second where a thing falls apart and comes back together.",
-    frames: { dir: "/frames", count: 66, pad: 4, ext: "jpg" },
+    frames: { dir: "/frames/about", count: 66, pad: 4, ext: "jpg" },
   },
   contact: {
     heading: "Let's make something worth looking at.",
